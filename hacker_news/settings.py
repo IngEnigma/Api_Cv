@@ -95,8 +95,7 @@ WSGI_APPLICATION = 'hacker_news.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        # Replace this value with your local database's connection string.
-        default='postgresql://postgres:S22004370@localhost:5432/mycv',
+        default='postgresql://postgres:postgres@localhost:5432/testapicv',
         conn_max_age=600
     )
 }
