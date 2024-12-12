@@ -27,6 +27,7 @@ class CreateOrUpdateHeader(graphene.Mutation):
     idHeader = graphene.Int()
     url = graphene.String()
     title = graphene.String()
+    name = graphene.String()
     description = graphene.String()
     phone = graphene.String()
     address = graphene.String()
@@ -36,15 +37,16 @@ class CreateOrUpdateHeader(graphene.Mutation):
 
     # Arguments for creating or updating the header
     class Arguments:
-        url= graphene.String()
+        url = graphene.String()
         title = graphene.String()
+        name = graphene.String()
         description = graphene.String()
         phone = graphene.String()
         address = graphene.String()
         email = graphene.String()
         socialmedia = graphene.String()
 
-    def mutate(self, info, title, description, phone, address, email, socialmedia, url):
+    def mutate(self, info, title, name, description, phone, address, email, socialmedia, url):
         user = info.context.user or None
         if user.is_anonymous:
             raise Exception('Not logged in!')
@@ -53,9 +55,10 @@ class CreateOrUpdateHeader(graphene.Mutation):
         # Fetch or create the singleton Header
         header, created = Header.objects.get_or_create(id=1, defaults={
             'title': title,
+            'name': name,
             'url': url,
             'description': description,
-            'phone' : phone,
+            'phone': phone,
             'address': address,
             'email': email,
             'socialmedia': socialmedia,
@@ -64,6 +67,7 @@ class CreateOrUpdateHeader(graphene.Mutation):
 
         if not created:  # If the Header already exists, update its fields
             header.title = title
+            header.name = name
             header.url = url
             header.description = description
             header.phone = phone
@@ -77,8 +81,9 @@ class CreateOrUpdateHeader(graphene.Mutation):
             idHeader=header.id,
             url=header.url,
             title=header.title,
+            name=header.name,
             description=header.description,
-            phone= header.phone,
+            phone=header.phone,
             address=header.address,
             email=header.email,
             socialmedia=header.socialmedia,
