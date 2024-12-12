@@ -45,8 +45,8 @@ class CreateWorkExperience(graphene.Mutation):
     company = graphene.String()
     location = graphene.String()
     description = graphene.String()
-    startDate = graphene.Date()
-    endDate   = graphene.Date()
+    startDate = graphene.String()
+    endDate   = graphene.String()
     achievements = graphene.List(graphene.String)
     posted_by = graphene.Field(UserType)
 
@@ -57,8 +57,8 @@ class CreateWorkExperience(graphene.Mutation):
         company = graphene.String()
         location = graphene.String()
         description = graphene.String()
-        startDate = graphene.Date()
-        endDate   = graphene.Date()
+        startDate = graphene.String()
+        endDate   = graphene.String()
         achievements = graphene.List(graphene.String)
 
     #3

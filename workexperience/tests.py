@@ -41,7 +41,7 @@ USERS_QUERY = '''
 '''
 
 CREATE_WORKEXPERIENCE_MUTATION = '''
-mutation MyMutation ($idWorkExperience : Int!, $company: String!, $location: String!, $description: String!, $endDate: Date!, $startDate: Date!, $position: String!, $achievements: [String!]!) {
+mutation MyMutation ($idWorkExperience : Int!, $company: String!, $location: String!, $description: String!, $endDate: String!, $startDate: String!, $position: String!, $achievements: [String!]!) {
   createWorkexperience(idWorkExperience: $idWorkExperience, company:$company, location:$location, description:$description, endDate:$endDate, startDate:$startDate, position:$position, achievements:$achievements) {
     company
     description
