@@ -41,10 +41,9 @@ USERS_QUERY = '''
 '''
 
 CREATE_WORKEXPERIENCE_MUTATION = '''
-mutation MyMutation ($idWorkExperience : Int!, $company: String!, $location: String!, $description: String!, $endDate: String!, $startDate: String!, $position: String!, $achievements: [String!]!) {
-  createWorkexperience(idWorkExperience: $idWorkExperience, company:$company, location:$location, description:$description, endDate:$endDate, startDate:$startDate, position:$position, achievements:$achievements) {
+mutation MyMutation ($idWorkExperience : Int!, $company: String!, $location: String!, $endDate: String!, $startDate: String!, $position: String!, $achievements: [String!]!) {
+  createWorkexperience(idWorkExperience: $idWorkExperience, company:$company, location:$location, endDate:$endDate, startDate:$startDate, position:$position, achievements:$achievements) {
     company
-    description
     endDate
     position
     location
@@ -59,7 +58,6 @@ WORKEXPERIENCE_BY_ID_QUERY = '''
 query positionById($idWorkExperience: Int!) {
   positionById(idWorkExperience: $idWorkExperience) {
     company
-    description
     endDate
     position
     location
@@ -79,7 +77,6 @@ WORKEXPERIENCE_NOQUERY = '''
 {
   positions(search: "") {
     company
-    description
     endDate
     position
     location
@@ -99,7 +96,6 @@ WORKEXPERIENCE_QUERY = '''
 {
   positions(search: "*") {
     company
-    description
     endDate
     position
     location
@@ -129,10 +125,10 @@ class LinkTestCase(GraphQLTestCase):
 
     def setUp(self):
         self.link1 = WorkExperience.objects.create(
-        id=1, position= "Clerk", location= "Mexico", description= "xd", startDate= "2024-01-01", endDate="2024-02-02", achievements=["a", "b", "c"] 
+        id=1, position= "Clerk", location= "Mexico", startDate= "2024-01-01", endDate="2024-02-02", achievements=["a", "b", "c"] 
         )
         self.link2 = WorkExperience.objects.create(
-        id=2, position= "Clerk", location= "Mexico", description= "xd", startDate= "2024-01-01", endDate="2024-02-02", achievements=["a", "b", "c"] 
+        id=2, position= "Clerk", location= "Mexico", startDate= "2024-01-01", endDate="2024-02-02", achievements=["a", "b", "c"] 
     )
         response_user = self.query(
             CREATE_USER_MUTATION,
@@ -159,7 +155,6 @@ class LinkTestCase(GraphQLTestCase):
                        'company':'UV',
                        'position': 'Clerk', 
                        'location': 'Mexico', 
-                       'description': 'xd',
                         'startDate':'2024-01-01', 
                         'endDate':'2024-02-02',
                         'achievements': [
@@ -171,7 +166,7 @@ class LinkTestCase(GraphQLTestCase):
         )
         content = json.loads(response.content)
         self.assertResponseNoErrors(response)
-        self.assertDictEqual({"createWorkexperience": {'idWorkExperience': 1,'company':'UV', 'position': 'Clerk', 'location': 'Mexico', 'description': 'xd', 'startDate':'2024-01-01', 'endDate':'2024-02-02', 'achievements': ['a', 'b', 'c']}}, content['data'])
+        self.assertDictEqual({"createWorkexperience": {'idWorkExperience': 1,'company':'UV', 'position': 'Clerk', 'location': 'Mexico', 'startDate':'2024-01-01', 'endDate':'2024-02-02', 'achievements': ['a', 'b', 'c']}}, content['data'])
     
     def test_create_WorkExperience_not_logged_in(self):
         # Attempt to delete without authentication
@@ -181,7 +176,6 @@ class LinkTestCase(GraphQLTestCase):
                        'company':'UV',
                        'position': 'Clerk', 
                        'location': 'Mexico', 
-                       'description': 'xd',
                         'startDate':'2024-01-01', 
                         'endDate':'2024-02-02',
                         'achievements': [
@@ -280,7 +274,6 @@ class LinkTestCase(GraphQLTestCase):
                        'company':'UV',
                        'position': 'Clerk', 
                        'location': 'Mexico', 
-                       'description': 'xd',
                         'startDate':'2024-01-01', 
                         'endDate':'2024-02-02',
                         'achievements': [

@@ -43,8 +43,7 @@ class CreateWorkExperience(graphene.Mutation):
     idWorkExperience   = graphene.Int()
     position     = graphene.String()
     company = graphene.String()
-    location = graphene.String()
-    description = graphene.String()
+    location = graphene.String()   
     startDate = graphene.String()
     endDate   = graphene.String()
     achievements = graphene.List(graphene.String)
@@ -56,13 +55,12 @@ class CreateWorkExperience(graphene.Mutation):
         position     = graphene.String()
         company = graphene.String()
         location = graphene.String()
-        description = graphene.String()
         startDate = graphene.String()
         endDate   = graphene.String()
         achievements = graphene.List(graphene.String)
 
     #3
-    def mutate(self, info, idWorkExperience, position, company,  location, description , startDate, endDate, achievements):
+    def mutate(self, info, idWorkExperience, position, company,  location, startDate, endDate, achievements):
         user = info.context.user or None
         if user.is_anonymous:
             raise Exception('Not logged in !');
@@ -75,7 +73,6 @@ class CreateWorkExperience(graphene.Mutation):
             company = company,
             position = position,
             location = location,
-            description = description,
             startDate = startDate,
             endDate   = endDate,
             posted_by  = user,
@@ -92,7 +89,6 @@ class CreateWorkExperience(graphene.Mutation):
             company = workExperience.company,
             position = workExperience.position,
             location = workExperience.location,
-            description = workExperience.description,
             startDate = workExperience.startDate,
             endDate   = workExperience.endDate,
             achievements = workExperience.achievements,

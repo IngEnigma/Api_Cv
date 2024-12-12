@@ -8,7 +8,6 @@ class WorkExperience(models.Model):
     position     = models.TextField(default='')
     company = models.TextField(default='')
     location = models.TextField(default='')
-    description = models.TextField(default='')
     startDate = models.TextField(default=now, blank=True)
     endDate   = models.TextField(default=now, blank=True)
     achievements = models.JSONField(blank=True, default=list)
